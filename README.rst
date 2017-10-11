@@ -8,6 +8,23 @@ Installation
 
 `pip install jsoncrawl`
 
+Description
+-----------
+
+*JSON node visitor*.
+
+Yields results of a user provided `process_node` funct.
+
+The `process node` function accepts Nodes; Nodes are 3-D named tuples:
+    1. The node's path; a list of JSON object keys/indexes.
+    2. The node's value.
+    3. The node's JSON data type (i.e. object, array, string, number, etc.)
+
+Options:
+    * Option to crawl through JSON objects.
+    * Option to crawl through JSON arrays.
+    * Option to use wildcard characters to substitute for index numbers.
+
 Usage
 -----
 
@@ -20,8 +37,8 @@ Usage
             Data to traverse (the tree)
 
         process_node (funct):
-            Accepts a parent Node and list of child Nodes as args. Example:
-            lambda parent, children: '.'.join(map(str, parent.keys))
+            Accepts a Node as an argument.
+            Example: `lambda node: '.'.join(map(str, node.keys))`
 
         objects (bool):
             Visit the items in an object?
@@ -33,3 +50,10 @@ Usage
             Replaces sequence index numbers with this character when set;
             if not visit_arrays then ignore this option.
         """
+        first_node = Node(keys=[], val=d, dtype=get_type(d))
+        to_crawl = deque([first_node])
+        while to_crawl:
+            node = to_crawl.popleft()
+            yield process_node(node)
+            children = get_children(node, element_ch, objects, arrays)
+            to_crawl.extend(children)
