@@ -1,5 +1,5 @@
-jsoncrawl
-=========
+JSON Tree Crawler
+=================
 
 JSON node crawler; traverse JSON trees; visit each node; yield results.
 
