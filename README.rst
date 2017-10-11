@@ -28,7 +28,7 @@ Options:
 Usage
 -----
 
-.. code::
+.. code-block:: python
 
     def node_visitor(d, process_node, objects=True, arrays=False, element_ch=None):
         """Call process_node funct for every node in tree and yield results.
