@@ -6,7 +6,9 @@ JSON node crawler; traverse JSON trees; visit each node; yield results.
 Installation
 ------------
 
-`pip install jsoncrawl`
+.. code-block::
+
+    pip install jsoncrawl
 
 Description
 -----------
