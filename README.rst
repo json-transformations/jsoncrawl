@@ -59,3 +59,17 @@ Usage
             yield process_node(node)
             children = get_children(node, element_ch, objects, arrays)
             to_crawl.extend(children)
+
+Example
+-------
+.. code-block:: python
+    """Print a list of unique keys in a JSON document.""
+
+    from jsoncrawl import node_visitor
+
+    def process_node(node):
+        return '.'.join(map(str, node.keys))
+
+    data = {'key1': 'test1', {'key2': 'test2'}}
+    for unique_key in set(node_visitor(data, process_node, element_ch='*')):
+        print(unique_key)
