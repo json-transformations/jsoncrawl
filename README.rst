@@ -16,21 +16,3 @@ Usage
 
 Installation
 ------------
-
-Requirements
-------------
-
-Compatibility
--------------
-
-Licence
--------
-
-Authors
--------
-
-`jsoncrawl` was written by `Brian Peterson <bpeterso2000@yahoo.com>`_.
-
-Credits
--------
-* Brian Peterson `@bpeterso2000 <https://github.com/bpeterso2000>`_, creator of JSON Transformations `<https://github.com/json-transformations>`_
