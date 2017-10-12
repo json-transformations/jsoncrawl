@@ -27,7 +27,7 @@ setup(
     author="Brian Peterson",
     author_email="bpeterso2000@yahoo.com",
 
-    description="JSON node crawler; traverse JSON trees; visit each node; yield results.",
+    description="Traverse JSON trees; visit each node; yield results.",
     long_description=readme,
 
     packages=find_packages(include=['jsoncrawl']),
