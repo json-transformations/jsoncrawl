@@ -86,13 +86,13 @@ def test_treecrawler_primitive():
     assert sorted(set(node_visitor('', get_keys))) == ['']
 
 
-def test_treecrawler_primitive():
+def test_treecrawler_primitive_without_objects():
     assert sorted(set(node_visitor('', get_keys, objects=False))) == ['']
 
 
 def test_treecrawler_mapping():
     result = set(node_visitor(FORECAST_MAPPING, get_keys, arrays=True))
-    assert sorted(result) ==  FORECAST_MAPPING_KEYS
+    assert sorted(result) == FORECAST_MAPPING_KEYS
 
 
 def test_treecrawler_sequence():
