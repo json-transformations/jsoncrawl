@@ -1,7 +1,9 @@
 JSON Tree Crawler
 =================
 
-JSON node crawler; traverse JSON trees; visit each node; yield results.
+|Build Status| |Coverage Status|
+
+*JSON node crawler; traverse JSON trees; visit each node; yield results*.
 
 Installation
 ------------
@@ -33,25 +35,30 @@ Usage
 .. code-block:: python
 
     def node_visitor(d, process_node, objects=True, arrays=False, element_ch=None):
-        """Call process_node funct for every node in tree and yield results.
+        """Call process_node funct for every node in tree and yield results."""
 
-        d (obj):
-            Data to traverse (the tree)
+d (obj):
+    Data to traverse (the tree)
 
-        process_node (funct):
-            Accepts a Node as an argument.
-            Example: `lambda node: '.'.join(map(str, node.keys))`
+process_node (funct):
+    Accepts a Node as an argument.
+    Example: `lambda node: '.'.join(map(str, node.keys))`
 
-        objects (bool):
-            Visit the items in an object?
+objects (bool):
+    Visit the items in an object?
 
-        arrays (bool):
-            Visit the elements in arrays? Automatically set if `element_ch`.
+arrays (bool):
+    Visit the elements in arrays? Automatically set if `element_ch`.
 
-        element_char (str):
-            Replaces sequence index numbers with this character when set;
-            if not visit_arrays then ignore this option.
-        """
+element_char (str):
+    Replaces sequence index numbers with this character when set;
+    if not visit_arrays then ignore this option.
+
+How it Works
+------------
+
+.. code-block:: python
+
         first_node = Node(keys=[], val=d, dtype=get_type(d))
         to_crawl = deque([first_node])
         while to_crawl:
@@ -75,3 +82,8 @@ Example
     data = {'key1': 'test1', {'key2': 'test2'}}
     for unique_key in set(node_visitor(data, process_node, element_ch='*')):
         print(unique_key)
+
+.. |Build Status| image:: https://travis-ci.org/json-transformations/jsoncrawl.svg?branch=master
+   :target: https://travis-ci.org/json-transformations/jsoncrawl
+.. |Coverage Status| image:: https://coveralls.io/repos/github/json-transformations/jsoncrawl/badge.svg?branch=master
+   :target: https://coveralls.io/github/json-transformations/jsoncrawl?branch=master
