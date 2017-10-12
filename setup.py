@@ -46,4 +46,3 @@ setup(
     test_requires=reqs_dev,
     setup_requires=['pytest-runner']
 )
-
