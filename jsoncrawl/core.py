@@ -15,7 +15,7 @@ Options:
 from collections import deque, namedtuple
 from itertools import repeat
 
-from jsoncrawl._compat import string_type, text_type
+from jsoncrawl._compat import string_type, text_type, int_type, long_type
 
 DONT_ITER_TYPES = string_type, text_type
 Node = namedtuple('Node', ['keys', 'val', 'dtype'])
@@ -24,7 +24,8 @@ JSON_TYPES = {
     list: 'array',
     string_type: 'string',
     text_type: 'string',
-    int: 'number (int)',
+    int_type: 'number (int)',
+    long_type: 'number (int)',
     float: 'number (real)',
     bool: 'boolean',
     type(None): 'null'
@@ -51,15 +52,17 @@ def get_children(node, element_char, objects=True, arrays=False):
     return [Node(node.keys + [k], v, get_type(v)) for k, v in items]
 
 
-def node_visitor(d, process_node, objects=True, arrays=False, element_ch=None):
+def node_visitor(
+    d, process_node=lambda x: x, objects=True, arrays=False, element_ch=None
+):
     """Call process_node funct for every node in tree and yield results.
 
     d (obj):
         Data to traverse (the tree)
 
     process_node (funct):
-        Accepts a parent Node and list of child Nodes as args. Example:
-        lambda parent, children: '.'.join(map(str, parent.keys))
+        Accepts a Node as an arg.
+        Example: `lambda node: '.'.join(map(str, node.keys))`
 
     objects (bool):
         Visit the items in an object?

@@ -1,6 +1,7 @@
-"""Tree Crawler Tests."""
+import json
 from copy import deepcopy
 
+import jsoncrawl
 from jsoncrawl.core import Node, node_visitor
 
 FORECAST_MAPPING = {
@@ -78,7 +79,7 @@ def test_treecrawler_raw_output():
     1st element is the parent node.
     2nd elemeent is a list of child nodes.
     """
-    result = node_visitor(TEST_DATA, lambda x: x)
+    result = node_visitor(TEST_DATA)
     assert sorted(result) == RAW_OUTPUT
 
 
@@ -113,3 +114,67 @@ def test_treecrawler_with_element_char():
 def test_treecrawler():
     result = set(node_visitor(FORECAST, get_keys, element_ch='*'))
     assert sorted(result) == FORECAST_KEYS
+
+
+def test_version():
+    assert float(jsoncrawl.__version__)
+
+
+def test_node_type_object():
+    data = json.loads('{}')
+    result = list(node_visitor(data))
+    assert result[0].dtype == 'object'
+
+
+def test_node_type_array():
+    data = json.loads('[]')
+    result = list(node_visitor(data))
+    assert result[0].dtype == 'array'
+
+
+def test_node_type_string():
+    data = json.loads('""')
+    result = list(node_visitor(data))
+    assert result[0].dtype == 'string'
+
+
+def test_node_type_text():
+    data = u""
+    result = list(node_visitor(data))
+    assert result[0].dtype == 'string'
+
+
+def test_node_type_int():
+    data = json.loads('1')
+    result = list(node_visitor(data))
+    assert result[0].dtype == 'number (int)'
+
+
+def test_node_type_long():
+    data = json.loads('100000000')
+    result = list(node_visitor(data))
+    assert result[0].dtype == 'number (int)'
+
+
+def test_node_type_float():
+    data = json.loads('0.1')
+    result = list(node_visitor(data))
+    assert result[0].dtype == 'number (real)'
+
+
+def test_node_type_true():
+    data = json.loads('true')
+    result = list(node_visitor(data))
+    assert result[0].dtype == 'boolean'
+
+
+def test_node_type_float():
+    data = json.loads('false')
+    result = list(node_visitor(data))
+    assert result[0].dtype == 'boolean'
+
+
+def test_node_type_float():
+    data = json.loads('null')
+    result = list(node_visitor(data))
+    assert result[0].dtype == 'null'
