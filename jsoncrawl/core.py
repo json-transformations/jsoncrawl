@@ -36,7 +36,7 @@ def get_type(value):
     return JSON_TYPES[type(value)]
 
 
-def get_children(node, element_char, objects=True, arrays=False):
+def get_children(node, element_char, objects=True, arrays=True):
     """Return the children of this Node as a list of Nodes."""
     items = []
 
