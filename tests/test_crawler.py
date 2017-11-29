@@ -79,7 +79,7 @@ def test_treecrawler_raw_output():
     1st element is the parent node.
     2nd elemeent is a list of child nodes.
     """
-    result = node_visitor(TEST_DATA)
+    result = node_visitor(TEST_DATA, arrays=False)
     assert sorted(result) == RAW_OUTPUT
 
 
@@ -170,11 +170,11 @@ def test_node_type_true():
 
 def test_node_type_float():
     data = json.loads('false')
-    result = list(node_visitor(data))
+    result = list(node_visitor(data, arrays=False))
     assert result[0].dtype == 'boolean'
 
 
 def test_node_type_float():
     data = json.loads('null')
-    result = list(node_visitor(data))
+    result = list(node_visitor(data, arrays=False))
     assert result[0].dtype == 'null'
