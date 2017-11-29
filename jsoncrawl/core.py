@@ -53,7 +53,7 @@ def get_children(node, element_char, objects=True, arrays=False):
 
 
 def node_visitor(
-    d, process_node=lambda x: x, objects=True, arrays=False, element_ch=None
+    d, process_node=lambda x: x, objects=True, arrays=True, element_ch=None
 ):
     """Call process_node funct for every node in tree and yield results.
 
